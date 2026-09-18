@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "CAP: cds watch",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "cds",
+            "runtimeArgs": [
+                "watch",
+                "--inspect"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "autoAttachChildProcesses": true
+        }
+    ]
+}

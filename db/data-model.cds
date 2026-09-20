@@ -1,13 +1,13 @@
 namespace pm;
+using { managed, cuid } from '@sap/cds/common';
 
-entity Equipment {
+entity Equipment: managed {
     key ID: Integer;
     name: String;
     location: String;
 }
 
-entity Notifications {
-    key ID: UUID;
+entity Notifications: managed, cuid {
     faultDescription: String;
     status: Integer enum {
         submitted = 0;

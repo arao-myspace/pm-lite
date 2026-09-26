@@ -46,3 +46,9 @@ annotate MaintenanceService.EquipmentService with {
     name @title: 'Name';
     location @title: 'Location';
 };
+
+annotate MaintenanceService.NotificationsService with @(restrict: [{
+    grant: 'DELETE',
+    to   : 'Kierownik'
+},
+{ grant: 'CREATE' }, { grant: 'UPDATE' }, { grant: 'READ' }]);

@@ -19,9 +19,13 @@ export default class MaintenanceService extends cds.ApplicationService {
                 payload.faultDescription = '[PILNE]' + payload.faultDescription;
             }
 
+            if (!req.user.is('Kierownik')) {
+                req.error(403, 'Brak uprawnień do tworzenia zgłoszeń!', 'Użytkownik nie jest Kierownikiem');
+            }
+
             const result = await SELECT.one.from(EquipmentService).where({ ID: payload.equipment_ID });
             if (!result) {
-                req.error(400, 'Podana maszyna nie istnieje w systemie!', payload.equipment_ID);
+                req.error(400, `Podana maszyna o ID = ${payload.equipment_ID} nie istnieje w systemie!`, payload.equipment_ID);
             }
         });
 

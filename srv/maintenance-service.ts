@@ -31,4 +31,25 @@ export default class MaintenanceService extends cds.ApplicationService {
 
         return super.init(); // To zawsze musi być na końcu metody init!
     }
+    async assignTechnician(_entity: unknown, keys: { ID: string }, technician: string) {
+        const { NotificationsService } = this.entities;
+
+        // Sprawdzamy czy encja istnieje w modelu
+        if (!NotificationsService) {
+            throw new Error('Encja NotificationsService nie została znaleziona w modelu CDS');
+        }
+        const notificationId = keys.ID;
+
+        // Aktualizujemy pole technician w zgłoszeniu o podanym ID
+        const result = await UPDATE(NotificationsService)
+            .set({ technician })
+            .where({ ID: notificationId });
+        if (result === 0) {
+            throw cds.error(404, `Nie znaleziono zgłoszenia o ID = ${notificationId}`);
+        }
+
+        // Pobieramy zaktualizowane zgłoszenie i zwracamy je jako wynik akcji
+        const updatedNotification = await SELECT.one.from(NotificationsService).where({ ID: notificationId });
+        return updatedNotification;
+    }
 }

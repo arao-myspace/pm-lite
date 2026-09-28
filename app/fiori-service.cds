@@ -51,4 +51,4 @@ annotate MaintenanceService.NotificationsService with @(restrict: [{
     grant: 'DELETE',
     to   : 'Kierownik'
 },
-{ grant: 'CREATE' }, { grant: 'UPDATE' }, { grant: 'READ' }]);
+{ grant: 'CREATE' }, { grant: 'UPDATE' }, { grant: 'READ' }, { grant: 'assignTechnician' }]);

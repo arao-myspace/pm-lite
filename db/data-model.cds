@@ -15,5 +15,6 @@ entity Notifications: managed, cuid {
         canceled = 2;
     };
     priority: Integer @assert.range: [0, 3];
+    technician: String;
     equipment: Association to Equipment;
 }

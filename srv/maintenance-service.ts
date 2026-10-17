@@ -1,5 +1,13 @@
 import cds from '@sap/cds';
 
+type EntityKey = { ID: string | number };
+
+const isEntityKey = (value: unknown): value is EntityKey =>
+    typeof value === 'object' &&
+    value !== null &&
+    'ID' in value &&
+    (typeof value.ID === 'string' || typeof value.ID === 'number');
+
 export default class MaintenanceService extends cds.ApplicationService {
     async init() {
 
@@ -29,27 +37,24 @@ export default class MaintenanceService extends cds.ApplicationService {
             }
         });
 
+        this.on('assignTechnician', NotificationsService, async (req: cds.Request) => {
+            const notificationKey = req.params.at(-1);
+            const technician = req.data.technician;
+            if (!isEntityKey(notificationKey) || typeof technician !== 'string') {
+                throw cds.error(400, 'Nieprawidłowe parametry akcji assignTechnician');
+            }
+            const notificationId = notificationKey.ID;
+
+            const result = await UPDATE(NotificationsService)
+                .set({ technician, status: 1 })
+                .where({ ID: notificationId });
+            if (result === 0) {
+                throw cds.error(404, `Nie znaleziono zgłoszenia o ID = ${notificationId}`);
+            }
+
+            return SELECT.one.from(NotificationsService).where({ ID: notificationId });
+        });
+
         return super.init(); // To zawsze musi być na końcu metody init!
-    }
-    async assignTechnician(_entity: unknown, keys: { ID: string }, technician: string) {
-        const { NotificationsService } = this.entities;
-
-        // Sprawdzamy czy encja istnieje w modelu
-        if (!NotificationsService) {
-            throw new Error('Encja NotificationsService nie została znaleziona w modelu CDS');
-        }
-        const notificationId = keys.ID;
-
-        // Aktualizujemy pole technician w zgłoszeniu o podanym ID
-        const result = await UPDATE(NotificationsService)
-            .set({ technician })
-            .where({ ID: notificationId });
-        if (result === 0) {
-            throw cds.error(404, `Nie znaleziono zgłoszenia o ID = ${notificationId}`);
-        }
-
-        // Pobieramy zaktualizowane zgłoszenie i zwracamy je jako wynik akcji
-        const updatedNotification = await SELECT.one.from(NotificationsService).where({ ID: notificationId });
-        return updatedNotification;
     }
 }

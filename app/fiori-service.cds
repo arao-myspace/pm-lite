@@ -37,16 +37,18 @@ annotate MaintenanceService.EquipmentService with @(
             {Value: name},
             {Value: location}
         ]},
-        Facets             : [{
-            $Type : 'UI.ReferenceFacet',
-            Label : 'Details',
-            Target: '@UI.FieldGroup#Details'
-        },
-        {
-            $Type : 'UI.ReferenceFacet',
-            Label : 'Notifications',
-            Target: 'to_Notifications/@UI.LineItem'
-        }]
+        Facets             : [
+            {
+                $Type : 'UI.ReferenceFacet',
+                Label : 'Details',
+                Target: '@UI.FieldGroup#Details'
+            },
+            {
+                $Type : 'UI.ReferenceFacet',
+                Label : 'Notifications',
+                Target: 'to_Notifications/@UI.LineItem'
+            }
+        ]
     }
 );
 
@@ -66,16 +68,19 @@ annotate MaintenanceService.NotificationsService with @(
     UI          : {
         LineItem           : [
             {
-                $Type: 'UI.DataFieldForAction',
+                $Type : 'UI.DataFieldForAction',
                 Action: 'MaintenanceService.assignTechnician',
-                Label: 'Assign Technician'
+                Label : 'Assign Technician'
             },
             {Value: ID},
             {Value: faultDescription},
             {Value: status},
             {Value: priority},
             {Value: technician},
-            {Value: equipment_ID, Label: 'Equipment ID'}
+            {
+                Value: equipment_ID,
+                Label: 'Equipment ID'
+            }
         ],
         SelectionFields    : [
             'faultDescription',
@@ -88,9 +93,9 @@ annotate MaintenanceService.NotificationsService with @(
         },
         Identification     : [
             {
-                $Type: 'UI.DataFieldForAction',
+                $Type : 'UI.DataFieldForAction',
                 Action: 'MaintenanceService.assignTechnician',
-                Label: 'Assign Technician'
+                Label : 'Assign Technician'
             },
             {Value: 'ID'},
             {Value: 'faultDescription'},
@@ -104,7 +109,10 @@ annotate MaintenanceService.NotificationsService with @(
             {Value: status},
             {Value: priority},
             {Value: technician},
-            {Value: equipment_ID, Label: 'Equipment ID'}
+            {
+                Value: equipment_ID,
+                Label: 'Equipment ID'
+            }
         ]},
         Facets             : [{
             $Type : 'UI.ReferenceFacet',

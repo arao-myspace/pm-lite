@@ -1,0 +1,30 @@
+{
+  "xsappname": "pm-lite",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Kierownik",
+      "description": "Maintenance manager"
+    },
+    {
+      "name": "$XSAPPNAME.Pracownik",
+      "description": "Maintenance employee"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Kierownik",
+      "description": "Maintenance manager",
+      "scope-references": [
+        "$XSAPPNAME.Kierownik"
+      ]
+    },
+    {
+      "name": "Pracownik",
+      "description": "Maintenance employee",
+      "scope-references": [
+        "$XSAPPNAME.Pracownik"
+      ]
+    }
+  ]
+}

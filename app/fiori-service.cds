@@ -11,7 +11,7 @@ annotate MaintenanceService.EquipmentService with @(
         LineItem           : [
             {Value: ID},
             {Value: name},
-            {Value: location}
+            {Value: location.name, Label: 'Location Name'},
         ],
         SelectionFields    : ['name'],
         HeaderInfo         : {
@@ -19,23 +19,9 @@ annotate MaintenanceService.EquipmentService with @(
             TypeNamePlural: 'Equipment',
             Title         : {Value: name}
         },
-        Identification     : [
-            {
-                Value: 'ID',
-                Label: 'ID'
-            },
-            {
-                Value: 'name',
-                Label: 'Name'
-            },
-            {
-                Value: 'location',
-                Label: 'Location'
-            }
-        ],
         FieldGroup #Details: {Data: [
             {Value: name},
-            {Value: location}
+            {Value: location_ID, Label: 'Location'}
         ]},
         Facets             : [
             {
@@ -132,3 +118,7 @@ annotate MaintenanceService.NotificationsService with @(
         {grant: 'assignTechnician'}
     ]
 );
+
+annotate MaintenanceService.NotificationsService with {
+    technician @Common.FieldControl: #ReadOnly;
+};

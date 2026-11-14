@@ -15,4 +15,5 @@ service MaintenanceService {
             )
             action assignTechnician(technician: String) returns NotificationsService;
         }
+    entity LocationService as projection on db.Location;
 }

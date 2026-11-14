@@ -15,9 +15,31 @@ annotate service.NotificationsService with {
             },
             {
                 $Type : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty : 'location',
+                ValueListProperty : 'location_ID',
             },
         ],
     }
 };
-
+annotate service.EquipmentService with {
+    location @Common.Text: location.name
+        @Common.TextArrangement: #TextOnly
+        @Common.ValueList: {
+            $Type: 'Common.ValueListType',
+            CollectionPath: 'LocationService',
+            Parameters: [
+                {
+                    $Type: 'Common.ValueListParameterInOut',
+                    LocalDataProperty: location_ID,
+                    ValueListProperty: 'ID',
+                },
+                {
+                    $Type: 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'name',
+                },
+                {
+                    $Type: 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'address',
+                },
+            ],
+        }
+};

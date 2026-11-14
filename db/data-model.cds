@@ -4,7 +4,7 @@ using { managed, cuid } from '@sap/cds/common';
 entity Equipment: managed {
     key ID: Integer;
     name: String;
-    location: String;
+    location: association to Location;
     to_Notifications: Association to many Notifications on to_Notifications.equipment = $self;
 }
 
@@ -22,4 +22,15 @@ entity Notifications: managed, cuid {
     @title : 'Technician'
     technician: String;
     equipment: Association to Equipment;
+}
+@cds.odata.valuelist
+entity Location: managed, cuid {
+    @title : 'Location Name'
+    name: String;
+    @title : 'Address'
+    address: String;
+    @title : 'City'
+    city: String;
+    @title : 'Country'
+    country: String;
 }

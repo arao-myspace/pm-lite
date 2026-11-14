@@ -2,9 +2,9 @@ import cds from '@sap/cds';
 
 export default class PlygroundService extends cds.ApplicationService {
     async init() {
-         const { Notifications, Equipment } = this.entities;
+         const { Notifications, Equipment, Location } = this.entities;
 
-        if (!Notifications || !Equipment) {
+        if (!Notifications || !Equipment || !Location) {
             throw new Error('Wymagane encje nie zostały znalezione w modelu CDS');
         }
         this.on('runExercise', async (req) => {
@@ -15,7 +15,7 @@ export default class PlygroundService extends cds.ApplicationService {
                 case 1:
                   result = await SELECT.from(Notifications).where({priority: 3}).orderBy('createdAt desc').columns('ID', 'faultDescription');
                 case 2:
-                    
+                 // result = await UPDATE()  
                 default:
                     
             }
